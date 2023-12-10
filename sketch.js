@@ -1,13 +1,25 @@
 let w, h; // width and height
 let time = 0;
 let num;
+let waveSlider;
+let waveSliderValue;
+let waveFunction;
 let wave = [];
 
 function setup() {
   w = windowWidth;
   h = windowHeight-20;
 
-  num = createSlider(1, 100, 1);
+	// Create the sliders
+  num = createSlider(1, 256, 1);
+	num.position(10, h);
+
+	waveSlider = createSlider(1, 3, 1);
+	waveSlider.position(10, h-20);
+
+	waveSliderValue = waveSlider.value();
+
+	waveFunction = new Functions(waveSliderValue);
 
   createCanvas(w, h);
 }
@@ -19,38 +31,20 @@ function draw() {
   let y=0;
 
   let radius = (h/5) * 4 / (1 * PI);
-    
-    translate(radius*2, h/2);
+  translate(radius*2, h/2);
 
-  
+	// Check if waveSlider moved
+	if (waveSliderValue != waveSlider.value()) {
+		waveSliderValue = waveSlider.value();
+		waveFunction.chosenFunction = waveSliderValue;
+	}
 
-  for(let i=0; i<num.value(); i++) {
+	// Calculate the transform
+	new_coordinates = waveFunction.transform(x, y);
+	x = new_coordinates[0];
+	y = new_coordinates[1];
 
-    prevx = x;
-    prevy = y;
-
-    n = 2 * i + 1;
-    radius = (h/5) * 4 / (n * PI);
-
-    // Draw the circles
-    push();
-    noFill();
-    stroke(255, 100);
-    circle(x, y, 2*radius);
-    pop();
-
-    // Calculate new x y
-    x += radius * cos(n * time);
-    y += radius * sin(n * time);
-
-    // Draw the connecting lines
-    push();
-    stroke(255);
-    line(prevx, prevy, x, y);
-    pop();
-  }
-
-    // Draw the vertical line
+  // Draw the horizontal line
   push(); 
   stroke(226, 83, 178);
   line(x, y, w/2.5, y);
