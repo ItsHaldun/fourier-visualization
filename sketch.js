@@ -4,22 +4,26 @@ let num;
 let waveSlider;
 let waveSliderValue;
 let waveFunction;
+let waveText;
 let wave = [];
 
 function setup() {
   w = windowWidth;
-  h = windowHeight-20;
+  h = windowHeight*1.00;
 
 	// Create the sliders
   num = createSlider(1, 256, 1);
-	num.position(10, h);
+	num.position(w*0.15, h*0.92);
+	num.size(w*0.12);
 
 	waveSlider = createSlider(1, 3, 1);
-	waveSlider.position(10, h-20);
+	waveSlider.position(w*0.01, h*0.92);
+	waveSlider.size(w*0.12);
 
+	waveText = ["Square", "Sawtooth", "Triangle"];
 	waveSliderValue = waveSlider.value();
 
-	waveFunction = new Functions(waveSliderValue);
+	waveFunction = new Functions(waveSliderValue, min(w, h)/5);
 
   createCanvas(w, h);
 }
@@ -30,8 +34,7 @@ function draw() {
   let x=0;
   let y=0;
 
-  let radius = (h/5) * 4 / (1 * PI);
-  translate(radius*2, h/2);
+  translate(windowWidth*0.25, h/2);
 
 	// Check if waveSlider moved
 	if (waveSliderValue != waveSlider.value()) {
@@ -47,6 +50,7 @@ function draw() {
   // Draw the horizontal line
   push(); 
   stroke(226, 83, 178);
+	strokeWeight(2);
   line(x, y, w/2.5, y);
   pop();
 
@@ -59,6 +63,7 @@ function draw() {
   push();
   noFill();
   stroke(255,255,0);
+	strokeWeight(2);
   beginShape();
   for(let i=0; i<wave.length; i++) {
     vertex(w/2.5 + i, wave[i]);
@@ -68,15 +73,19 @@ function draw() {
 
 
   // For memory efficiency
+	// Remove old points from wave
   if(wave.length >= w) {
     wave.pop();
   }
 
+	// Draw the slider texts
   push();
+	translate(-windowWidth*0.25, -h/2);
   fill(255);
   stroke(255);
-  textSize(32);
-  text(str(num.value()), 10-(h/5) * 8 / (1 * PI), h/2 - h/40);
+  textSize(w/64);
+  text(str(num.value()), w*0.15, h*0.90);
+	text(waveText[waveSlider.value()-1], w*0.01, h*0.90);
   pop();
 
   time += 0.02;

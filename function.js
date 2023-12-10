@@ -1,6 +1,7 @@
 class Functions {
-	constructor(choice=1) {
+	constructor(choice=1, size) {
 		this.chosenFunction = choice;
+		this.maxSize = size;
 	}
 
 	transform(x, y) {
@@ -25,12 +26,13 @@ class Functions {
 			let prevy = y;
 
 			let n = 2 * i + 1;
-			let radius = (h/5) * 4 / (n * PI);
+			let radius = this.maxSize * 4 / (n * PI);
 
 			// Draw the circles
 			push();
 			noFill();
 			stroke(255, 100);
+			strokeWeight(2);
 			circle(x, y, 2*radius);
 			pop();
 
@@ -41,6 +43,7 @@ class Functions {
 			// Draw the connecting lines
 			push();
 			stroke(255);
+			strokeWeight(2);
 			line(prevx, prevy, x, y);
 			pop();
 		}
@@ -56,7 +59,7 @@ class Functions {
 			let prevy = y;
 
 			let n = i + 1;
-			let radius = (h/5) * 2 / (n * PI);
+			let radius = this.maxSize * 2 / (n * PI);
 			if (n%2 == 1) {
 				radius *= -1;
 			}
@@ -65,6 +68,7 @@ class Functions {
 			push();
 			noFill();
 			stroke(255, 100);
+			strokeWeight(2);
 			circle(x, y, 2*radius);
 			pop();
 
@@ -75,6 +79,7 @@ class Functions {
 			// Draw the connecting lines
 			push();
 			stroke(255);
+			strokeWeight(2);
 			line(prevx, prevy, x, y);
 			pop();
 		}
@@ -90,12 +95,13 @@ class Functions {
 			let prevy = y;
 
 			let n = 2*i + 1;
-			let radius = (h/5) * (8 / (PI*PI)) * (((-1)**((n-1)/2)) / (n*n));
+			let radius = this.maxSize * (8 / (PI*PI)) * (((-1)**((n-1)/2)) / (n*n));
 
 			// Draw the circles
 			push();
 			noFill();
 			stroke(255, 100);
+			strokeWeight(2);
 			circle(x, y, 2*radius);
 			pop();
 
@@ -106,6 +112,7 @@ class Functions {
 			// Draw the connecting lines
 			push();
 			stroke(255);
+			strokeWeight(2);
 			line(prevx, prevy, x, y);
 			pop();
 		}
