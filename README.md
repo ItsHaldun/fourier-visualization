@@ -1,5 +1,5 @@
 # Fourier Visualization
-!["Fourier Visualization"](assets\fourier-showcase.gif)
+!["Fourier Visualization"](assets/fourier-showcase.gif)
 
 ## Summary
 My attempt at the Coding Trains Coding Challenge #125, which you can [watch here](https://www.youtube.com/watch?v=Mm2eYfj0SgA). It is a visualization of the [fourier series](https://en.wikipedia.org/wiki/Fourier_series). Coding Train explained it far better than I could, so if you are curious, check out his video. I expanded his model by adding saw tooth and triangle waves to the mix. 
